@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-const urlRoute = require("./routes/url");
-const staticRoute = require("./routes/staticRouter");
+const { urlRoute, userRoute, staticRoute } = require("./routes/index");
 const URL = require("./models/url")
 const path = require("path");
+const cookieParser = require("cookie-parser");
+const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
 const PORT = 8000;
 const { connectMongoDB } = require("./connection");
 
@@ -11,18 +12,20 @@ connectMongoDB("mongodb://127.0.0.1:27017/urlShortner").then(()=> console.log("M
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
+
 
 app.set('view engine', "ejs")
 app.set("views", path.resolve("./views"));
-app.use(express.static("public"));
 app.get('/test',async(req,res)=>{
   const allURL = await URL.find({});
   return res.render("home",{
     urls: allURL
   })
 })
-app.use("/url", urlRoute);
-app.use("/", staticRoute);
+app.use("/url", restrictToLoggedinUserOnly, urlRoute);
+app.use("/user", userRoute);
+app.use("/", checkAuth, staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
@@ -36,6 +39,7 @@ app.get("/url/:shortId", async (req, res) => {
       },
     }
   );
+  if(!result) return res.status(404).json({error:"Invalid shortURL"})
 //   return res.json(result)
   res.redirect(result.redirectUrl)
 });
