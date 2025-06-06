@@ -27,12 +27,13 @@ async function handleLogin(req,res) {
           error: "Invalid details",
         });
     }
-    const sessionId = uuidv4();
-    setUser(sessionId, user)
+    // const sessionId = uuidv4();
+    // setUser(sessionId, user)
     const token = setUser(user);
-    res.cookie("uid", sessionId);
 
-    // res.cookie("uid",token,)
+    // res.cookie("uid", sessionId);
+
+    res.cookie("uid",token,)
   return res.redirect('/')
 }
 module.exports ={
