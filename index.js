@@ -4,7 +4,7 @@ const { urlRoute, userRoute, staticRoute } = require("./routes/index");
 const URL = require("./models/url")
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
+const { checkForAuthentication, restrictTo } = require("./middlewares/auth");
 const PORT = 8000;
 const { connectMongoDB } = require("./connection");
 
@@ -13,7 +13,7 @@ connectMongoDB("mongodb://127.0.0.1:27017/urlShortner").then(()=> console.log("M
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(checkForAuthentication)
 
 app.set('view engine', "ejs")
 app.set("views", path.resolve("./views"));
@@ -23,9 +23,9 @@ app.get('/test',async(req,res)=>{
     urls: allURL
   })
 })
-app.use("/url", restrictToLoggedinUserOnly, urlRoute);
+app.use("/url", restrictTo(["NORMAL", "ADMIN"]),urlRoute);
 app.use("/user", userRoute);
-app.use("/", checkAuth, staticRoute);
+app.use("/", staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;

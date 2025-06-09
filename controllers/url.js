@@ -21,13 +21,19 @@ async function handleGenerateNewShortURL(req, res) {
   });
 }
 async function handleGetAllURL(req,res) {
-  const result = await URL.find({})
-  if(!result) return res.status(404).json({error: "no url founded"})
+  if (!req.user) return res.redirect("/login");
+  const allUrls = await URL.find({ createdBy: req.user._id });
+  res.render("home", {
+    urls: allUrls,
+  });
+  // const result = await URL.find({})
+  if (!allUrls) return res.status(404).json({ error: "no url founded" });
     return res.status(200).json(result)
 }
 async function handleGetAnalytics(req,res) {
   const shortId = req.params.shortId;
   const result = await URL.findOne({shortId})
+  if (!result) return res.status(404).json({ error: "no url founded" });
   return res.json({
     totalClicks: result.visitHistory.length,
     analytics: result.visitHistory,
