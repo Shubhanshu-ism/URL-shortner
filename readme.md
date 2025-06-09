@@ -1,81 +1,129 @@
+# 🔗 URL✂︎ Shortener
 
-# 📌 URL ✂︎ SHORTNER 
+A full-stack URL shortener web application built with **Node.js**, **Express**, **MongoDB**, and **EJS**, featuring user authentication and an admin dashboard to monitor URLs and click statistics.
 
-A brief description of what your project does and who it's for.
+---
 
-## 🚀 Features
+## ✨ Features
 
-- ✅ Feature 1 (e.g., User Signup/Login)
-- ✅ Feature 2 (e.g., Admin Dashboard)
-- ✅ Feature 3 (e.g., CRUD functionality)
-- ✅ Responsive UI using [Your Tech Stack Here]
+- 🔐 User Authentication (Signup & Login)
+- 🧪 URL Shortening with Unique Links
+- 📊 Click Tracking for Each Short URL
+- 👨‍💼 Admin Dashboard with:
+  - List of all shortened URLs
+  - Click statistics
+  - User who created each URL
+- 📋 Clean and Responsive UI with HTML & CSS
 
-## 🖼️ Screenshots
+---
+
+## 📸 Screenshots
+
+
 
 ### 🔐 Signup Page
-<img src="public/Signup.png" alt="Signup Page" width="500"/>
+![Signup](./public/Signup.png)
 
-### 🔓 Login Page
-<img src="public/Login.png" alt="Login Page" width="500"/>
+### 🔐 Login Page
+![Login](./public/Login.png)
 
-### 🏠 Home Page
-<img src="public/Home.png" alt="Home Page" width="500"/>
+### 🏠 Home (User Dashboard)
+![Home](./public/Home.png)
 
-### 🧑‍💼 Admin Dashboard
-<img src="public/Admin.png" alt="Admin Dashboard" width="500"/>
+### 👨‍💼 Admin Dashboard
+![Admin](./public/Admin.png)
 
-## 🛠️ Tech Stack
+---
 
-- **Frontend:** React.js / Next.js / HTML / CSS / Tailwind
-- **Backend:** Node.js / Express.js
-- **Database:** MongoDB / PostgreSQL
-- **Authentication:** JWT / Clerk / Firebase
-- **Other Tools:** Git, GitHub, VS Code, etc.
+## 🏗️ Tech Stack
 
-## 📂 Folder Structure (optional)
+- **Frontend**: HTML, CSS, EJS Templates
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB with Mongoose
+- **Authentication**: Cookie-based authentication
+- **Unique ID Generation**: `shortid`
 
-```
+---
 
-project-root/
-│
-├── public/
-│   ├── Signup.png
-│   ├── Login.png
-│   ├── Home.png
-│   └── Admin.png
-├── controllers
-├── middlewares
-├── modals
-├── routes
-├── service
-├── view
-├── 
-├── README.md
-└── package.json
+## 🚀 Getting Started
 
-````
-
-## 📦 Installation
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-npm install
-npm start
+git clone https://github.com/your-username/url-shortener.git
+cd url-shortener
 ````
 
-## 🙌 Contributing
+### 2. Install Dependencies
 
-Contributions are welcome! Please open an issue or submit a pull request.
+```bash
+npm install
+```
 
-## 📄 License
+### 3. Configure Environment Variables
+
+Create a `.env` file in the root directory and add:
+
+```env
+PORT=8000
+MONGO_URL=mongodb://127.0.0.1:27017/urlShortener
+```
+
+### 4. Start the Development Server
+
+```bash
+npm start
+```
+
+Navigate to: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 📁 Folder Structure
+
+```
+├── models/              # Mongoose schemas for URL and User
+├── routes/              # Express routes (auth, url, admin)
+├── views/               # EJS templates (login, signup, home, admin)
+├── public/              # Static assets (CSS, images)
+├── middlewares/         # Custom middlewares (auth handling)
+├── app.js               # Main server file
+├── .env                 # Environment config
+└── README.md
+```
+
+---
+
+## ✅ Functionalities
+
+| Feature           | Status |
+| ----------------- | ------ |
+| User Signup/Login | ✅      |
+| URL Shortening    | ✅      |
+| Click Tracking    | ✅      |
+| Admin Panel       | ✅      |
+| Cookie-based Auth | ✅      |
+
+---
+
+## 🛡️ Security
+
+* **Note**: Passwords are currently stored in **plain text**. It is recommended to hash them using a library like `bcrypt.js` in production.
+* Authentication tokens are stored in cookies
+* Routes are protected with custom middleware (`restrictToLoggedinUserOnly`)
+
+---
+
+## 🙌 Author
+
+**Shubhanshu Jain** 
+📧 [shubhanshujain2233@gmail.com](mailto:shubhanshujain2233@gmail.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/shubhanshu-jain-iit-ism/)
+💻 [Portfolio](https://shubhanshu-portfolio-one.vercel.app)
+
+---
+
+## 📜 License
 
 This project is licensed under the MIT License.
-
-## 👤 Author
-
-* [Shubhanshu Jain](https://www.linkedin.com/in/shubhanshu-jain-iit-ism/)
-* [Portfolio](https://shubhanshu-portfolio-one.vercel.app/)
-* Email: [shubhanshujain2233@gmail.com](mailto:shubhanshujain2233@gmail.com)
-
 
