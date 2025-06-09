@@ -24,8 +24,8 @@ function checkForAuthentication(req, res, next) {
 // Curried function  with closure
 function restrictTo(roles=[]) {
     return function(req, res, next){
-        if(!req.user) res.redirect('/login')
-        if(!roles.includes(req.user.role)) res.end("Unauthorised")
+        if(!req.user)return res.redirect("/login");
+        if(!roles.includes(req.user.role))return res.status(403).end("Unauthorised");
         return next()
     }
 }
